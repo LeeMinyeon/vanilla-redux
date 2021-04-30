@@ -1,27 +1,9 @@
-import {createStore} from "redux"
+import React from "react";
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import App from "./components/App"
+import store from "./store";
 
-const add=document.getElementById("add");
-const minus=document.getElementById("minus");
-const number=document.querySelector("span");
-
-const ADD="ADD";
-const MINUS="MINUS";
-number.innerText=0;
-const countModifier=(count=0,action)=>{
-    switch(action.type){
-        case ADD:
-            return count+1;
-        case MINUS:
-            return count-1;
-        default:
-            return count
-    }
-};
-
-const countStore =createStore(countModifier);
-const onChange=()=>{
-    number.innerText=countStore.getState();
-}
-countStore.subscribe(onChange);
-add.addEventListener("click", ()=>countStore.dispatch({type:ADD}));
-minus.addEventListener("click", ()=>countStore.dispatch({type:MINUS}));
+ReactDOM.render(
+<Provider store={store}>
+<App></App></Provider>, document.getElementById("root"));
